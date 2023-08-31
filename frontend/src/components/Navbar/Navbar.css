@@ -1,0 +1,40 @@
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+	background-color: white;
+	color: rgb(127, 197, 127);
+	border-bottom: 1px solid rgba(127, 197, 127, 0.2); /* Optional: A slight border at the bottom for a subtle separation */
+}
+
+.navbar-left,
+.navbar-right {
+	display: flex;
+	align-items: center; /* Ensure vertical alignment */
+}
+
+.navbar-icon {
+	margin-right: 8px;
+	font-size: 24px; /* Adjusting the size of the icon for better visibility */
+}
+
+.navbar-title {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.navbar-button {
+	margin-left: 10px;
+	background-color: rgb(127, 197, 127);
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	border-radius: 4px;
+}
+
+.navbar-button:hover {
+	background-color: #006400; /* A darker shade of green for the hover effect */
+}

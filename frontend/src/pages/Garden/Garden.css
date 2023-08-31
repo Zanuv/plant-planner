@@ -1,0 +1,157 @@
+/* Garden.css */
+/* Garden.css */
+/* Styles for the modal backdrop */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Ensure it appears above other content */
+}
+
+/* Styles for the modal content */
+.modal-content {
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+	width: 80%;
+	max-height: 80%; /* 80% of the screen height */
+	overflow-y: auto; /* Add scroll for long lists */
+	position: relative;
+}
+
+/* Styles for the close button */
+.close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: transparent;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+/* Container for the plants */
+.plant-list-container {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr); /* 5 columns */
+	gap: 16px; /* Gap between cards */
+}
+
+/* Individual plant card styling */
+.plant-card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 16px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s;
+}
+
+.plant-card:hover {
+	transform: translateY(-5px); /* Lift up the card a bit on hover */
+}
+
+.plant-card img {
+	max-width: 100%; /* Ensure images don't overflow the card */
+	border-radius: 8px; /* Rounded corners for the images */
+}
+
+.plant-card h3 {
+	margin-top: 12px;
+}
+
+/* Styles for the Garden layout */
+.garden-container {
+	display: flex;
+	padding-top: 20px; /* Space from the top */
+}
+
+.lists-container {
+	flex: 0.3; /* This gives it a dynamic width */
+	padding-right: 20px; /* Space after the lists */
+}
+
+.lists-container a {
+	display: inline-block;
+	font-size: 24px;
+	color: #32a852;
+	text-decoration: none;
+	border: 2px solid #32a852;
+	padding: 10px 30px; /* Increased padding to make the box a bit wider */
+	margin: 10px 0;
+	border-radius: 5px;
+}
+
+.new-list-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px dashed #999;
+	width: 100px; /* Adjust as needed */
+	height: 40px; /* Slimmer button */
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.new-list-button:hover {
+	background-color: #f8f8f8;
+}
+
+/* Styling for the delete button */
+.lists-container button {
+	background-color: #32a852;
+	color: white;
+	border: none;
+	padding: 5px 10px; /* Some padding around the text */
+	border-radius: 5px; /* Optional: Rounded corners for the button */
+	cursor: pointer; /* Cursor changes to a hand when hovering over the button */
+	vertical-align: middle; /* Align the button to the middle of the text */
+	margin-left: 15px; /* Space it away from the list name */
+}
+
+.lists-container button:hover {
+	background-color: #289740; /* Slightly darker green for hover effect */
+}
+
+/* Removes the purple color for clicked links */
+a:visited {
+	color: #32a852;
+}
+
+/* Optional: Adding a hover effect to the list names */
+.lists-container a:hover {
+	background-color: #e8f8eb; /* A light green background on hover */
+}
+
+/* Align the delete buttons */
+.delete-button {
+	display: inline-block; /* Make the button an inline element */
+	vertical-align: top; /* Align the button to the top */
+	margin-left: 15px; /* Space it away from the list name */
+}
+
+.search-button {
+	background-color: #32a852; /* Green background */
+	color: white; /* White text */
+	padding: 10px 20px; /* Padding around the text */
+	border: none; /* Remove default border */
+	border-radius: 5px; /* Rounded corners */
+	cursor: pointer; /* Hand cursor on hover */
+	font-size: 16px; /* Font size */
+	transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Hover effect */
+.search-button:hover {
+	background-color: #289740; /* Slightly darker green on hover */
+}
+
+/* Active effect when button is pressed */
+.search-button:active {
+	background-color: #1f6a30; /* Even darker green when active */
+}

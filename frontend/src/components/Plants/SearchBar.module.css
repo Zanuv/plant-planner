@@ -1,0 +1,33 @@
+/* SearchBar.module.css */
+.container {
+	display: flex;
+	flex-direction: column; /* Stack children vertically */
+	align-items: center; /* Center items horizontally */
+	gap: 10px; /* Space between input and button */
+}
+
+.input {
+	flex: 1; /* Take up remaining space */
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 5px; /* Full rounded corners as it's a standalone input now */
+	width: 100%; /* Make input take full width */
+	box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.button {
+	padding: 10px 15px;
+	font-size: 16px;
+	background-color: #32a852;
+	color: white;
+	border: 1px solid #ddd;
+	border-radius: 5px; /* Full rounded corners as it's a standalone button now */
+	cursor: pointer;
+	transition: background-color 0.3s;
+	box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.button:hover {
+	background-color: #289740;
+}

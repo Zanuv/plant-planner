@@ -1,0 +1,57 @@
+import React, { useState } from "react";
+import "./Navbar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSeedling } from "@fortawesome/free-solid-svg-icons";
+import RegisterModal from "../Modals/RegisterModal/RegisterModal";
+import LoginModal from "../Modals/LoginModal/LoginModal";
+
+function Navbar({ isLoggedIn, onLogout, onLogin, username }) {
+	const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+	const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+
+	return (
+		<div className="navbar">
+			<div className="navbar-left">
+				<FontAwesomeIcon icon={faSeedling} className="navbar-icon" />
+				<span className="navbar-title">Plant Planner</span>
+			</div>
+			<div className="navbar-right">
+				{!isLoggedIn ? (
+					<>
+						<button
+							className="navbar-button"
+							onClick={() => setLoginModalOpen(true)}
+						>
+							Login
+						</button>
+						<button
+							className="navbar-button"
+							onClick={() => setRegisterModalOpen(true)}
+						>
+							Register
+						</button>
+					</>
+				) : (
+					<>
+						<span>Welcome, {username}!</span>
+						<button className="navbar-button" onClick={onLogout}>
+							Logout
+						</button>
+					</>
+				)}
+			</div>
+
+			<LoginModal
+				isOpen={isLoginModalOpen}
+				onClose={() => setLoginModalOpen(false)}
+				onLogin={onLogin}
+			/>
+			<RegisterModal
+				isOpen={isRegisterModalOpen}
+				onClose={() => setRegisterModalOpen(false)}
+			/>
+		</div>
+	);
+}
+
+export default Navbar;

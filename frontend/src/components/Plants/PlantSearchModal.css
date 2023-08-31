@@ -1,0 +1,48 @@
+/* components/Plants/PlantSearchModal.css */
+
+/* PlantSearchModal.css */
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Ensure it appears above other content */
+}
+
+.modal-content {
+	background-color: white;
+	padding: 20px;
+	max-width: 80%;
+	max-height: 80%;
+	overflow-y: auto; /* This will enable scrolling */
+	border-radius: 8px;
+	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+	position: relative;
+}
+
+.close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: transparent;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.pagination-controls {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
+/* The plant list and card styles can either be here or in Garden.css, 
+   depending on where you use them the most. 
+   If they're specific to the modal, keep them here. 
+   If they're used elsewhere too, consider keeping them in a more general file like Garden.css */
