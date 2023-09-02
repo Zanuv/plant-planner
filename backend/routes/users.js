@@ -11,7 +11,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../db/config");
-const { query } = require("../db/db"); // Import the query function from db.js
+const { query } = require("../db/db");
 const authenticateJWT = require("../middleware/auth");
 
 const router = express.Router();
@@ -118,7 +118,5 @@ router.get("/protected-route", authenticateJWT, (req, res) => {
 	// You can access user data using req.user
 	res.json({ message: "Protected data" });
 });
-
-// ... more routes ...
 
 module.exports = router;

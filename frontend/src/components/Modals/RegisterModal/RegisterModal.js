@@ -31,11 +31,11 @@ function RegisterModal({ isOpen, onClose }) {
 				password,
 			});
 
-			// Assuming your backend responds with a token on successful registration
+			// Assuming the backend responds with a token on successful registration
 			if (response.data && response.data.token) {
 				alert("Registration successful!");
 				onClose(); // Close the modal
-				// You can store the token here if needed
+				// Store the token here if needed
 			} else {
 				alert("Registration failed!");
 			}

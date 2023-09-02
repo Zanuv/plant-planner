@@ -12,7 +12,7 @@ const PlantSearch = () => {
 	};
 
 	const handleAddPlantToList = async (plant) => {
-		// API call to your backend to add the plant to a list
+		// API call to the backend to add the plant to a list
 		await ApiService.addPlantToList(plant);
 	};
 

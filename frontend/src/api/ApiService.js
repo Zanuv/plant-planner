@@ -3,14 +3,17 @@ import axios from "axios";
 const BASE_URL = "";
 
 const ApiService = {
+	// Register a user
 	register: (data) => {
 		return axios.post(`${BASE_URL}/users/signup`, data);
 	},
 
+	// Login a user
 	login: (data) => {
 		return axios.post(`${BASE_URL}/users/login`, data);
 	},
 
+	// Create a list
 	createList: (data, token) => {
 		// Assuming data is an object with both list_name and description
 		// e.g., data = { list_name: "My List", description: "Description of my list" }
@@ -21,6 +24,7 @@ const ApiService = {
 		});
 	},
 
+	// Update a list
 	updateList: (listId, data, token) => {
 		return axios.put(`${BASE_URL}/lists/${listId}`, data, {
 			headers: {
@@ -29,6 +33,7 @@ const ApiService = {
 		});
 	},
 
+	// Get all lists for a specific user
 	getLists: (token) => {
 		return axios.get(`${BASE_URL}/lists`, {
 			headers: {
@@ -70,6 +75,7 @@ const ApiService = {
 		});
 	},
 
+	// Delete a plant from a specific list
 	removePlantFromList: (listId, plantId) => {
 		const token = localStorage.getItem("token");
 		return axios.delete(`${BASE_URL}/lists/${listId}/plants/${plantId}`, {
@@ -79,6 +85,7 @@ const ApiService = {
 		});
 	},
 
+	// Get list details
 	getListDetails: (listId) => {
 		const token = localStorage.getItem("token");
 		return axios.get(`${BASE_URL}/lists/${listId}`, {
@@ -88,6 +95,7 @@ const ApiService = {
 		});
 	},
 
+	// Delete a list
 	deleteList: (listId, token) => {
 		return axios.delete(`${BASE_URL}/lists/${listId}`, {
 			headers: {

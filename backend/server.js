@@ -3,7 +3,7 @@ require("dotenv").config(); // Load environment variables from .env file
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const path = require("path"); // NEW: Require path module
+const path = require("path");
 const config = require("./db/config");
 
 const app = express();
@@ -21,9 +21,9 @@ const listRoutes = require("./routes/lists");
 app.use("/lists", listRoutes);
 
 const plantRoutes = require("./routes/plants");
-app.use("/lists", plantRoutes); // This will cover the nested plants routes, e.g., /lists/:listId/plants
+app.use("/lists", plantRoutes);
 
-const perennialRoutes = require("./api/perenual"); // Ensure this path is correct.
+const perennialRoutes = require("./api/perenual");
 app.use("/api/perenual", perennialRoutes);
 
 // NEW: Serve static files from the React frontend app

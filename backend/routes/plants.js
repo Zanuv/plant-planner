@@ -133,7 +133,7 @@ router.post("/:listId/add-plant", authenticateJWT, async (req, res, next) => {
 			// If the plant doesn't exist, insert it
 			const plantResult = await query(
 				"INSERT INTO plants (plant_external_id, plant_name, scientific_name, image_url) VALUES ($1, $2, $3, $4) RETURNING plant_id",
-				[plant_external_id, plant_name, scientific_name[0], image_url] // Note that scientific_name is an array, so we extract the first element
+				[plant_external_id, plant_name, scientific_name[0], image_url]
 			);
 			plantId = plantResult.rows[0].plant_id;
 		} else {

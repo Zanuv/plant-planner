@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSeedling } from "@fortawesome/free-solid-svg-icons";
 import RegisterModal from "../Modals/RegisterModal/RegisterModal";
 import LoginModal from "../Modals/LoginModal/LoginModal";
-import { useNavigate } from "react-router-dom"; // <-- Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 function Navbar({ isLoggedIn, onLogout, onLogin, username }) {
 	const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
 	const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-	const navigate = useNavigate(); // <-- Use the useNavigate hook here
+	const navigate = useNavigate();
 
 	const handleLoginNavbar = (user) => {
 		onLogin(user);
