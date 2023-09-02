@@ -3,6 +3,7 @@ import ApiService from "../../api/ApiService";
 
 const ListCreationForm = ({ onListCreated }) => {
 	const [listName, setListName] = useState("");
+	const [listDescription, setListDescription] = useState("");
 	const [message, setMessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -15,13 +16,17 @@ const ListCreationForm = ({ onListCreated }) => {
 		try {
 			const token = localStorage.getItem("token");
 			const response = await ApiService.createList(
-				{ list_name: listName },
+				{
+					list_name: listName,
+					description: listDescription, // Include the description here
+				},
 				token
 			);
 
 			if (response.status === 201) {
 				setMessage("List created successfully!");
 				setListName("");
+				setListDescription("");
 				if (onListCreated) onListCreated();
 			} else {
 				setMessage(response.data.error);
@@ -41,6 +46,12 @@ const ListCreationForm = ({ onListCreated }) => {
 					placeholder="List Name"
 					value={listName}
 					onChange={(e) => setListName(e.target.value)}
+				/>
+				<input
+					type="text"
+					placeholder="List Description"
+					value={listDescription}
+					onChange={(e) => setListDescription(e.target.value)}
 				/>
 				<button type="submit" disabled={isLoading}>
 					Create List

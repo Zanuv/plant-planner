@@ -1,5 +1,3 @@
-/* Garden.css */
-/* Garden.css */
 /* Styles for the modal backdrop */
 .modal {
 	position: fixed;
@@ -36,33 +34,44 @@
 	cursor: pointer;
 }
 
-/* Container for the plants */
-.plant-list-container {
+/* Adjust the Garden layout */
+.garden-container {
+	padding: 20px 40px; /* Space from the top and sides */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Styling for the search bar */
+.search-container {
+	width: 100%;
+	max-width: 1200px;
+	margin-bottom: 20px; /* Space between search bar and lists */
+}
+
+/* Grid container for the lists */
+.lists-container {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr); /* 5 columns */
-	gap: 16px; /* Gap between cards */
+	grid-template-columns: repeat(
+		5,
+		1fr
+	); /* creates 5 columns of equal width */
+	gap: 20px; /* sets a gap between rows and columns */
+	width: 100%; /* takes up the full width of its parent */
+	max-width: 1200px; /* you can adjust this value as per your design requirements */
 }
 
-/* Individual plant card styling */
-.plant-card {
+/* Individual list item styles */
+.list-item {
 	border: 1px solid #ddd;
-	border-radius: 8px;
-	padding: 16px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
 }
 
-.plant-card:hover {
-	transform: translateY(-5px); /* Lift up the card a bit on hover */
-}
-
-.plant-card img {
-	max-width: 100%; /* Ensure images don't overflow the card */
-	border-radius: 8px; /* Rounded corners for the images */
-}
-
-.plant-card h3 {
-	margin-top: 12px;
+.list-item button {
+	display: block;
+	margin: 10px auto 0; /* centers the button horizontally and adds space on top */
 }
 
 /* Styles for the Garden layout */
@@ -154,4 +163,25 @@ a:visited {
 /* Active effect when button is pressed */
 .search-button:active {
 	background-color: #1f6a30; /* Even darker green when active */
+}
+
+/* Individual list item styles with flex */
+.list-item {
+	border: 1px solid #ddd;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	display: flex; /* Use flexbox */
+	flex-direction: column; /* Stack children vertically */
+	justify-content: center; /* Center children vertically */
+	align-items: center; /* Center children horizontally */
+}
+
+.list-item a {
+	margin-bottom: 10px; /* Space between the list name and the button */
+}
+
+.list-item button {
+	display: block;
+	margin: 10px auto 0; /* centers the button horizontally and adds space on top */
 }

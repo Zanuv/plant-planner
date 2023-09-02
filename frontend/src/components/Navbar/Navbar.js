@@ -4,10 +4,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSeedling } from "@fortawesome/free-solid-svg-icons";
 import RegisterModal from "../Modals/RegisterModal/RegisterModal";
 import LoginModal from "../Modals/LoginModal/LoginModal";
+import { useNavigate } from "react-router-dom"; // <-- Import useNavigate
 
 function Navbar({ isLoggedIn, onLogout, onLogin, username }) {
 	const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
 	const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+	const navigate = useNavigate(); // <-- Use the useNavigate hook here
+
+	const handleLoginNavbar = (user) => {
+		onLogin(user);
+		navigate("/garden");
+	};
+
+	const handleLogoutNavbar = () => {
+		onLogout();
+		navigate("/");
+	};
 
 	return (
 		<div className="navbar">
@@ -34,7 +46,10 @@ function Navbar({ isLoggedIn, onLogout, onLogin, username }) {
 				) : (
 					<>
 						<span>Welcome, {username}!</span>
-						<button className="navbar-button" onClick={onLogout}>
+						<button
+							className="navbar-button"
+							onClick={handleLogoutNavbar}
+						>
 							Logout
 						</button>
 					</>
@@ -44,7 +59,7 @@ function Navbar({ isLoggedIn, onLogout, onLogin, username }) {
 			<LoginModal
 				isOpen={isLoginModalOpen}
 				onClose={() => setLoginModalOpen(false)}
-				onLogin={onLogin}
+				onLogin={handleLoginNavbar}
 			/>
 			<RegisterModal
 				isOpen={isRegisterModalOpen}

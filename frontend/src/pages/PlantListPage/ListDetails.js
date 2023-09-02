@@ -2,11 +2,15 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../api/ApiService";
 import { useParams } from "react-router-dom";
-import styles from "./ListDetails.module.css"; // Importing styles as a module
+import styles from "./ListDetails.module.css";
 
 const ListDetails = () => {
 	const [plants, setPlants] = useState([]);
 	const [listName, setListName] = useState("");
+	const [listDescription, setListDescription] = useState("");
+	const [isEditMode, setIsEditMode] = useState(false);
+	const [tempListName, setTempListName] = useState("");
+	const [tempListDescription, setTempListDescription] = useState("");
 	const { listId } = useParams();
 
 	useEffect(() => {
@@ -18,11 +22,34 @@ const ListDetails = () => {
 		const fetchListDetails = async () => {
 			const response = await ApiService.getListDetails(listId);
 			setListName(response.data.list_name);
+			setListDescription(response.data.description);
 		};
 
 		fetchListPlants();
 		fetchListDetails();
 	}, [listId]);
+
+	const handleUpdate = async () => {
+		try {
+			// Handle the update logic here
+			const token = localStorage.getItem("token");
+			const response = await ApiService.updateList(
+				listId,
+				{ list_name: tempListName, description: tempListDescription },
+				token
+			);
+			if (response.status === 200) {
+				setListName(tempListName);
+				setListDescription(tempListDescription);
+				setIsEditMode(false);
+			} else {
+				alert("Failed to update the list. Please try again.");
+			}
+		} catch (error) {
+			console.error("Error updating list:", error);
+			alert("An error occurred. Please try again.");
+		}
+	};
 
 	const handleDeletePlant = async (plantId) => {
 		try {
@@ -39,7 +66,41 @@ const ListDetails = () => {
 
 	return (
 		<div>
-			<h1 className={styles["list-title"]}>{listName || "Loading..."}</h1>
+			{isEditMode ? (
+				<div className={styles["description-edit-container"]}>
+					<input
+						value={tempListName}
+						onChange={(e) => setTempListName(e.target.value)}
+						placeholder="List Name"
+					/>
+					<textarea
+						value={tempListDescription}
+						onChange={(e) => setTempListDescription(e.target.value)}
+						placeholder="List Description"
+					/>
+					<div className={styles["edit-buttons"]}>
+						<button onClick={handleUpdate}>Save</button>
+						<button onClick={() => setIsEditMode(false)}>
+							Cancel
+						</button>
+					</div>
+				</div>
+			) : (
+				<div className={styles["description-container"]}>
+					<h1 className={styles["list-title"]}>
+						{listName || "Loading..."}
+					</h1>
+					<p className={styles["list-description"]}>
+						{listDescription}
+					</p>
+					<div className={styles["center-button"]}>
+						<button onClick={() => setIsEditMode(true)}>
+							Edit
+						</button>
+					</div>
+				</div>
+			)}
+
 			<div className={styles["list-plant-container"]}>
 				<div className={styles["list-plant-list"]}>
 					{plants.map((plant) => (

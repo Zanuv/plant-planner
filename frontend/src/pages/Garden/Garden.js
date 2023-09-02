@@ -51,8 +51,11 @@ const Garden = () => {
 		setIsSearchModalOpen(false);
 	};
 
-	const handleDeleteList = async (listId) => {
+	const handleDeleteList = async (listId, event) => {
 		try {
+			// Stop event propagation to prevent triggering parent handlers
+			event.stopPropagation();
+
 			const token = localStorage.getItem("token");
 			await ApiService.deleteList(listId, token);
 			setUserLists((prevLists) =>
@@ -95,13 +98,30 @@ const Garden = () => {
 
 	return (
 		<div className="garden-container">
+			{/* Search Bar */}
+			<div className="search-container">
+				<SearchBar
+					onSearch={(results, searchTerm) => {
+						setSearchResults(results);
+						setCurrentSearchTerm(searchTerm);
+						setCurrentPage(1);
+						setIsSearchModalOpen(true);
+					}}
+				/>
+			</div>
+
+			{/* Lists container */}
 			<div className="lists-container">
 				{userLists.map((list) => (
-					<div key={list.list_id}>
+					<div key={list.list_id} className="list-item">
 						<Link to={`/list/${list.list_id}`}>
 							{list.list_name}
 						</Link>
-						<button onClick={() => handleDeleteList(list.list_id)}>
+
+						<p>{list.description}</p>
+						<button
+							onClick={(e) => handleDeleteList(list.list_id, e)}
+						>
 							Delete
 						</button>
 					</div>
@@ -114,27 +134,19 @@ const Garden = () => {
 				</div>
 			</div>
 
-			<div>
-				<SearchBar
-					onSearch={(results, searchTerm) => {
-						setSearchResults(results);
-						setCurrentSearchTerm(searchTerm);
-						setCurrentPage(1);
-						setIsSearchModalOpen(true);
-					}}
-				/>
-				<PlantSearchModal
-					isOpen={isSearchModalOpen}
-					onClose={handleCloseSearchModal}
-					plants={searchResults}
-					onNext={() => setCurrentPage((prev) => prev + 1)}
-					onPrev={() => setCurrentPage((prev) => prev - 1)}
-					hasMoreResults={hasMoreResults}
-					currentPage={currentPage}
-					userLists={userLists}
-				/>
-			</div>
+			{/* Modal for plant search */}
+			<PlantSearchModal
+				isOpen={isSearchModalOpen}
+				onClose={handleCloseSearchModal}
+				plants={searchResults}
+				onNext={() => setCurrentPage((prev) => prev + 1)}
+				onPrev={() => setCurrentPage((prev) => prev - 1)}
+				hasMoreResults={hasMoreResults}
+				currentPage={currentPage}
+				userLists={userLists}
+			/>
 
+			{/* Modal for list creation */}
 			{isListModalOpen && (
 				<div
 					className="modal"

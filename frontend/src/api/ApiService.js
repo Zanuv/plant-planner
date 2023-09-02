@@ -12,7 +12,17 @@ const ApiService = {
 	},
 
 	createList: (data, token) => {
+		// Assuming data is an object with both list_name and description
+		// e.g., data = { list_name: "My List", description: "Description of my list" }
 		return axios.post(`${BASE_URL}/lists`, data, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+	},
+
+	updateList: (listId, data, token) => {
+		return axios.put(`${BASE_URL}/lists/${listId}`, data, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
