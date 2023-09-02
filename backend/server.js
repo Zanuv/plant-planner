@@ -13,11 +13,6 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-// Sample route
-app.get("/", (req, res) => {
-	res.send("Hello, Plant Planner!");
-});
-
 // TODO: Import and use other routes here
 const userRoutes = require("./routes/users");
 app.use("/users", userRoutes);
