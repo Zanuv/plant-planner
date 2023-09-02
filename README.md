@@ -78,7 +78,5 @@ For stretch goals, consider the following:
 
 1. **Social Sharing**: Users can share their plant lists or individual plants on social media or directly with friends who also use the app.
 2. **Gamification**: Users earn points or badges for completing tasks, maintaining plants, or learning through the Tips and Guides section.
-3. **Plant Identification**: Integrate with a plant identification API to let users identify unknown plants.
-4. **Weather and Climate Adaptation**: The app could suggest when to water or adjust care based on local weather data.
-5. **Marketplace**: A platform where users could exchange, sell, or buy plants or seeds.
+3. **Weather and Climate Adaptation**: The app could suggest when to water or adjust care based on local weather data.
 
