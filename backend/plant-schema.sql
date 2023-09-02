@@ -21,25 +21,13 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: list_plants; Type: TABLE; Schema: public; Owner: zane
---
-
-CREATE TABLE public.list_plants (
-    list_id integer NOT NULL,
-    plant_id integer NOT NULL
-);
-
-
-ALTER TABLE public.list_plants OWNER TO zane;
-
---
 -- Name: lists; Type: TABLE; Schema: public; Owner: zane
 --
 
 CREATE TABLE public.lists (
     list_id integer NOT NULL,
     user_id integer,
-    list_name character varying(255) NOT NULL
+    list_name character varying(255)
 );
 
 
@@ -68,16 +56,26 @@ ALTER SEQUENCE public.lists_list_id_seq OWNED BY public.lists.list_id;
 
 
 --
+-- Name: plant_list; Type: TABLE; Schema: public; Owner: zane
+--
+
+CREATE TABLE public.plant_list (
+    plant_id integer NOT NULL,
+    list_id integer NOT NULL
+);
+
+
+ALTER TABLE public.plant_list OWNER TO zane;
+
+--
 -- Name: plants; Type: TABLE; Schema: public; Owner: zane
 --
 
 CREATE TABLE public.plants (
     plant_id integer NOT NULL,
-    plant_external_id integer,
-    custom_notes text,
-    plant_name text,
-    image_url text,
-    scientific_name text
+    plant_name character varying(255),
+    description text,
+    care_instructions text
 );
 
 
@@ -112,8 +110,8 @@ ALTER SEQUENCE public.plants_plant_id_seq OWNED BY public.plants.plant_id;
 CREATE TABLE public.users (
     user_id integer NOT NULL,
     username character varying(255) NOT NULL,
-    hashed_password character varying(255) NOT NULL,
-    email character varying(255) NOT NULL
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL
 );
 
 
@@ -163,19 +161,19 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 
 
 --
--- Name: list_plants list_plants_pkey; Type: CONSTRAINT; Schema: public; Owner: zane
---
-
-ALTER TABLE ONLY public.list_plants
-    ADD CONSTRAINT list_plants_pkey PRIMARY KEY (list_id, plant_id);
-
-
---
 -- Name: lists lists_pkey; Type: CONSTRAINT; Schema: public; Owner: zane
 --
 
 ALTER TABLE ONLY public.lists
     ADD CONSTRAINT lists_pkey PRIMARY KEY (list_id);
+
+
+--
+-- Name: plant_list plant_list_pkey; Type: CONSTRAINT; Schema: public; Owner: zane
+--
+
+ALTER TABLE ONLY public.plant_list
+    ADD CONSTRAINT plant_list_pkey PRIMARY KEY (plant_id, list_id);
 
 
 --
@@ -211,27 +209,27 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: list_plants list_plants_list_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zane
---
-
-ALTER TABLE ONLY public.list_plants
-    ADD CONSTRAINT list_plants_list_id_fkey FOREIGN KEY (list_id) REFERENCES public.lists(list_id);
-
-
---
--- Name: list_plants list_plants_plant_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zane
---
-
-ALTER TABLE ONLY public.list_plants
-    ADD CONSTRAINT list_plants_plant_id_fkey FOREIGN KEY (plant_id) REFERENCES public.plants(plant_id);
-
-
---
 -- Name: lists lists_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zane
 --
 
 ALTER TABLE ONLY public.lists
     ADD CONSTRAINT lists_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id);
+
+
+--
+-- Name: plant_list plant_list_list_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zane
+--
+
+ALTER TABLE ONLY public.plant_list
+    ADD CONSTRAINT plant_list_list_id_fkey FOREIGN KEY (list_id) REFERENCES public.lists(list_id);
+
+
+--
+-- Name: plant_list plant_list_plant_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: zane
+--
+
+ALTER TABLE ONLY public.plant_list
+    ADD CONSTRAINT plant_list_plant_id_fkey FOREIGN KEY (plant_id) REFERENCES public.plants(plant_id);
 
 
 --
