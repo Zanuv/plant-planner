@@ -4,6 +4,8 @@ Capstone 2 Project
 
 Plant Planner is designed to become the green thumb's best companion. It is a user-friendly web application aimed at helping plant lovers manage their indoor and outdoor plant collections with ease.
 
+The project was deployed on Render and is live at https://plant-planner.onrender.com/ 
+
 ## Tech Stack
 
 For this project, I will be harnessing the power of the following technologies:
@@ -36,7 +38,7 @@ To provide users with extensive information about a variety of plants, I'll be u
 
 ### Database Scema
 
-![Database Schema](images/plant-schema.png)
+![Database Schema](images/plant-schema-1.png)
 
 ### API Issues
 
