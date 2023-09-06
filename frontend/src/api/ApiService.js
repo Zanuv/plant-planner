@@ -1,3 +1,4 @@
+// ApiService is a collection of methods that make calls to the backend API
 import axios from "axios";
 
 const BASE_URL = "";
