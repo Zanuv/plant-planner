@@ -13,7 +13,16 @@ const app = express();
 
 // Middlewares
 app.use(cors());
-app.use(helmet());
+// Set Content Security Policy
+app.use(helmet({
+	contentSecurityPolicy: {
+	  directives: {
+		defaultSrc: ["'self'"],
+		imgSrc: ["'self'", "data:", "https://example.com"], // Add your external source here
+		// ... add other directives as needed
+	  },
+	},
+  }));
 app.use(express.json());
 
 app.use((req, res, next) => {
