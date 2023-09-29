@@ -18,7 +18,7 @@ app.use(helmet({
 	contentSecurityPolicy: {
 	  directives: {
 		defaultSrc: ["'self'"],
-		imgSrc: ["'self'", "data:", "https://example.com"], // Add your external source here
+		imgSrc: ["'self'", "data:", "https://raw.githubusercontent.com"], // Add your external source here
 		// ... add other directives as needed
 	  },
 	},
