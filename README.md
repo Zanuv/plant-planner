@@ -32,7 +32,7 @@ Plant Planner is intended for everyone, from beginner plant enthusiasts to seaso
 
 ## Data Used
 
-To provide users with extensive information about a variety of plants, I'll be utilizing data from the Perenual Plant API, found at https://perenual.com/docs/api. This API delivers a wealth of information such as required sun time, optimal watering schedule, the best climate for growth, and much more for thousands of different plants.
+Due to issues with the previous API that was in use, I have decided to try and implement a basic RESTFUL API for this project. Doing so will allow me the opportunity to learn about RESTFUL APIs and create a better user experience. 
 
 ## Project Outline 
 
@@ -42,7 +42,7 @@ To provide users with extensive information about a variety of plants, I'll be u
 
 ### API Issues
 
-The chosen API presents some potential challenges, including rate limits and access restrictions to certain plant data. As the project progresses, I will explore ways to work within these limitations to deliver a seamless experience to users.
+The previous API had issues with CORS headers that I was unable to bypass, and for that reason I created my own small RESTFUL API for this project for demonstration purposes. 
 
 ### Sensitive Information
 
