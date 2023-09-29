@@ -1,169 +1,93 @@
 // pages/Garden/Garden.js
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import ListCreationForm from "../../components/Lists/ListCreationForm";
-import SearchBar from "../../components/Plants/SearchBar";
-import PlantSearchModal from "../../components/Plants/PlantSearchModal";
+import { Link, useNavigate } from "react-router-dom";
 import ApiService from "../../api/ApiService";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import "./Garden.css";
 
 const Garden = () => {
-	const [isListModalOpen, setIsListModalOpen] = useState(false);
-	const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-	const [searchResults, setSearchResults] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [hasMoreResults, setHasMoreResults] = useState(true);
-	const [currentSearchTerm, setCurrentSearchTerm] = useState("");
-	const [userLists, setUserLists] = useState([]);
+    const [userLists, setUserLists] = useState([]);
+    const [newListName, setNewListName] = useState("");
+    const navigate = useNavigate();
 
-	const fetchUserLists = async () => {
-		try {
-			const token = localStorage.getItem("token");
-			if (!token) {
-				throw new Error("Token not found in local storage.");
-			}
+    useEffect(() => {
+        fetchUserLists();
+    }, []);
 
-			const response = await ApiService.getLists(token);
-			if (!response || response.status !== 200) {
-				throw new Error(
-					`Failed to fetch lists: ${
-						response?.data?.error || "Unknown error"
-					}`
-				);
-			}
+    const fetchUserLists = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await ApiService.getLists(token);
+            if (response && response.status === 200) {
+                setUserLists(response.data);
+            }
+        } catch (error) {
+            console.error("Error fetching user lists:", error);
+        }
+    };
 
-			setUserLists(response.data);
-		} catch (error) {
-			console.error(
-				"An error occurred while fetching lists:",
-				error.message
-			);
-		}
-	};
+    const handleDeleteList = async (listId) => {
+        try {
+            const token = localStorage.getItem("token");
+            await ApiService.deleteList(listId, token);
+            fetchUserLists();
+        } catch (error) {
+            console.error("Error deleting the list:", error);
+        }
+    };
 
-	const handleCloseListModal = () => {
-		setIsListModalOpen(false);
-		fetchUserLists();
-	};
+    const handleCreateList = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            await ApiService.createList({ name: newListName }, token);
+            fetchUserLists();
+            setNewListName("");
+        } catch (error) {
+            console.error("Error creating the list:", error);
+        }
+    };
 
-	const handleCloseSearchModal = () => {
-		setIsSearchModalOpen(false);
-	};
-
-	const handleDeleteList = async (listId, event) => {
-		try {
-			// Stop event propagation to prevent triggering parent handlers
-			event.stopPropagation();
-
-			const token = localStorage.getItem("token");
-			await ApiService.deleteList(listId, token);
-			setUserLists((prevLists) =>
-				prevLists.filter((list) => list.list_id !== listId)
-			);
-			alert("List deleted successfully!");
-		} catch (error) {
-			console.error("Error deleting list:", error);
-			alert("Failed to delete list. Please try again.");
-		}
-	};
-
-	useEffect(() => {
-		const fetchMorePlants = async () => {
-			try {
-				const response = await ApiService.searchPlants(
-					currentSearchTerm,
-					currentPage
-				);
-				const results = response.data.data || [];
-
-				if (results.length === 0) {
-					setHasMoreResults(false);
-				} else {
-					setSearchResults(results);
-				}
-			} catch (error) {
-				console.error("Error fetching plants:", error);
-			}
-		};
-
-		if (currentSearchTerm.trim() !== "") {
-			fetchMorePlants();
-		}
-	}, [currentPage, currentSearchTerm]);
-
-	useEffect(() => {
-		fetchUserLists();
-	}, []);
-
-	return (
-		<div className="garden-container">
-			{/* Search Bar */}
-			<div className="search-container">
-				<SearchBar
-					onSearch={(results, searchTerm) => {
-						setSearchResults(results);
-						setCurrentSearchTerm(searchTerm);
-						setCurrentPage(1);
-						setIsSearchModalOpen(true);
-					}}
-				/>
-			</div>
-
-			{/* Lists container */}
-			<div className="lists-container">
-				{userLists.map((list) => (
-					<div key={list.list_id} className="list-item">
-						<Link to={`/list/${list.list_id}`}>
-							{list.list_name}
-						</Link>
-
-						<p>{list.description}</p>
-						<button
-							onClick={(e) => handleDeleteList(list.list_id, e)}
-						>
-							Delete
-						</button>
-					</div>
-				))}
-				<div
-					className="new-list-button"
-					onClick={() => setIsListModalOpen(true)}
-				>
-					+
-				</div>
-			</div>
-
-			{/* Modal for plant search */}
-			<PlantSearchModal
-				isOpen={isSearchModalOpen}
-				onClose={handleCloseSearchModal}
-				plants={searchResults}
-				onNext={() => setCurrentPage((prev) => prev + 1)}
-				onPrev={() => setCurrentPage((prev) => prev - 1)}
-				hasMoreResults={hasMoreResults}
-				currentPage={currentPage}
-				userLists={userLists}
-			/>
-
-			{/* Modal for list creation */}
-			{isListModalOpen && (
-				<div
-					className="modal"
-					onClick={(e) =>
-						e.target.className === "modal" &&
-						setIsListModalOpen(false)
-					}
-				>
-					<div className="modal-content">
-						<ListCreationForm
-							onListCreated={handleCloseListModal}
-						/>
-					</div>
-				</div>
-			)}
-		</div>
-	);
+    const handleSearch = async (query) => {
+        try {
+            const results = await ApiService.searchPlantsByCommonName(query);
+            if (results && results.status === 200) {
+                navigate(`/search-results/${query}`, { state: { results: results.data } });
+            }
+        } catch (error) {
+            console.error("Error searching for plants:", error);
+        }
+    };
+    
+    return (
+        <div className="garden-container">
+            <h2>Welcome to Your Garden Hub</h2>
+            <div className="search-container">
+                <SearchBar onSearch={handleSearch} />
+                <div className="create-list-container">
+                    <input 
+                        type="text" 
+                        value={newListName} 
+                        onChange={(e) => setNewListName(e.target.value)} 
+                        placeholder="New List Name" 
+                    />
+                    <button onClick={handleCreateList}>Create</button>
+                </div>
+            </div>
+            <div className="lists-container">
+                {userLists.map(list => (
+                    <div key={list.id} className="list-item">
+                    <img src="https://raw.githubusercontent.com/Zanuv/plantimages/main/garden.jpg" alt="List Thumbnail" className="list-image" />
+                    <Link to={`/list/${list.id}`} style={{ color: 'green', fontSize: '18px', fontWeight: 'bold', textDecoration: 'none' }}>
+                        {list.name}
+                    </Link>
+                    <p>{list.description}</p>
+                    <button onClick={() => handleDeleteList(list.id)}>Delete</button>
+                </div>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default Garden;

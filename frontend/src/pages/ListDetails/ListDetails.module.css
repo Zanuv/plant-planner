@@ -1,0 +1,109 @@
+.h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.plantCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.plantCard {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px; /* Adjusted padding */
+    width: calc(13% - 20px); /* Adjusted width */
+    height: 350px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px -10px rgba(0,0,0,0.75);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* set the flex direction to column */
+}
+
+.plantCardContent {
+    height: calc(100% - 40px); /* Adjust this value as necessary */
+    overflow-y: auto; /* This will add scroll if the content is too long */
+}
+
+.buttonContainer {
+    height: 40px; /* Adjust this value as necessary */
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plantCard h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.plantScientificName {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+}
+
+.plantIcon {
+    width: 100px; /* or whatever width you prefer */
+    height: auto; /* maintains the aspect ratio */
+    display: block;
+    margin: 0 auto 10px;
+}
+
+
+.watering {
+    color: #3498db; /* Blue */
+}
+
+.sunlight {
+    color: #f39c12; /* Orange */
+}
+
+.zoning {
+    color: brown; /* Brown */
+}
+
+.description {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.editButton {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.editButton:hover {
+    background-color: darkgreen;
+}
+
+.deleteButton {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.deleteButton:hover {
+    background-color: darkgreen;
+}
+
+

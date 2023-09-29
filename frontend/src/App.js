@@ -10,23 +10,23 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/HomePage/Home";
 import Garden from "./pages/Garden/Garden";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import ListDetails from "./pages/PlantListPage/ListDetails";
+import ListDetails from "./pages/ListDetails/ListDetails";
+import SearchResultsPage from "./pages/SearchResultsPage/SearchResultsPage";
 
 function RootComponent({ isLoggedIn, setIsLoggedIn, setUsername }) {
-	const navigate = useNavigate(); // Use the useNavigate hook here
-	const [initializationDone, setInitializationDone] = useState(false);
+    const navigate = useNavigate();
+	const [initialLoad, setInitialLoad] = useState(true);
 
-	useEffect(() => {
-		if (!initializationDone) {
-			const token = localStorage.getItem("token");
-			if (token) {
-				setIsLoggedIn(true);
-				setUsername(localStorage.getItem("username"));
-				navigate("/garden"); // Redirect to Garden page
-			}
-			setInitializationDone(true); // Set the initialization flag to true
+    useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (token && initialLoad) {
+			setIsLoggedIn(true);
+			setUsername(localStorage.getItem("username"));
+			navigate("/garden");
+			setInitialLoad(false); 
 		}
-	}, [navigate, setIsLoggedIn, setUsername, initializationDone]);
+	}, [navigate, setIsLoggedIn, setUsername, initialLoad]);
+	
 
 	return (
 		<Routes>
@@ -42,6 +42,7 @@ function RootComponent({ isLoggedIn, setIsLoggedIn, setUsername }) {
 				}
 			/>
 			<Route path="/list/:listId" element={<ListDetails />} />
+			<Route path="/search-results/:query" element={<SearchResultsPage />} />
 		</Routes>
 	);
 }

@@ -28,9 +28,10 @@ const PlantCard = ({ plant, userLists }) => {
 		<div className="plant-card">
 			{plant.default_image && (
 				<img
-					src={plant.default_image.thumbnail}
-					alt={plant.common_name}
-				/>
+				src={plant.default_image.thumbnail}
+				alt={plant.common_name}
+			/>
+			
 			)}
 			<h3>{plant.common_name}</h3>
 			<p>{plant.scientific_name[0]}</p>
@@ -47,5 +48,6 @@ const PlantCard = ({ plant, userLists }) => {
 		</div>
 	);
 };
+
 
 export default PlantCard;

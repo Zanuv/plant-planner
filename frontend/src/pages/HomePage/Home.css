@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+    overflow: hidden; /* Prevents scrolling */
+}
+
+.home-container {
+    background-image: url('https://raw.githubusercontent.com/Zanuv/plantimages/main/homepage-garden.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Adjusted to viewport height */
+    width: 100vw; /* Adjusted to viewport width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* or any other color that is readable on your background image */
+}
+
+.home-content {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    padding: 20px;
+    border-radius: 10px; /* optional, for rounded corners */
+}
+

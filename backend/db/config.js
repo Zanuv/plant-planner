@@ -7,7 +7,6 @@ const CONFIG = {
 	PORT: process.env.PORT || 3001,
 	BCRYPT_WORK_FACTOR: process.env.BCRYPT_WORK_FACTOR || 12,
 	DATABASE_URL: process.env.DATABASE_URL,
-	PERENUAL_API_KEY: process.env.PERENUAL_API_KEY,
 };
 
 module.exports = CONFIG;

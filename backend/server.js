@@ -1,10 +1,13 @@
+// File name: server.js
+// Description: This file is the main backend server file 
+
 require("dotenv").config(); // Load environment variables from .env file
 
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const path = require("path");
 const config = require("./db/config");
+// const path = require("path");
 
 const app = express();
 
@@ -13,18 +16,21 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-// TODO: Import and use other routes here
-const userRoutes = require("./routes/users");
+app.use((req, res, next) => {
+    console.log('Received request body:', req.body);
+    next();
+});
+
+
+// Import Routes
+const userRoutes = require("./routes/userRoutes");
+const listRoutes = require("./routes/listRoutes");
+const plantRoutes = require("./routes/plantRoutes");
+
+// Use Routes
 app.use("/users", userRoutes);
-
-const listRoutes = require("./routes/lists");
 app.use("/lists", listRoutes);
-
-const plantRoutes = require("./routes/plants");
-app.use("/lists", plantRoutes);
-
-const perennialRoutes = require("./api/perenual");
-app.use("/api/perenual", perennialRoutes);
+app.use("/plants", plantRoutes);
 
 // NEW: Serve static files from the React frontend app
 const frontendBuildPath = path.join(__dirname, "..", "frontend", "build");
